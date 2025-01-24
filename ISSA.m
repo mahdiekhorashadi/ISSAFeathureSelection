@@ -54,7 +54,7 @@ for i = 1:PopSize
     pop(i).Position = rand(1, dim).*(VarMax-VarMin)+VarMin;
     pop(i).BPosition = Mappingg(pop(i).Position);
 
-    [pop(i).Cost,~,~, pop(i).Out]=CostFunction(pop(i).BPosition);
+    [pop(i).Cost,pop(i).Fs,pop(i).Mcc, pop(i).Out]=CostFunction(pop(i).BPosition);
 
 end
 
@@ -80,7 +80,6 @@ while Iter<Max_iter+1
 
     FoodPosition = pop(idx).Position;
     FoodFitness = pop(idx).Cost;
-    %     FoodBPosition = pop(idx).BPosition;
     PosWrost = pop(idmx).Position;
 
     currentBest = FoodFitness;
@@ -116,7 +115,7 @@ while Iter<Max_iter+1
             [newFit, newFS,newMCC,~] = CostFunction(newBPop);
 
             if newFit<pop(i).Cost
-                pop(i).x = newPop;
+                pop(i).Position = newPop;
                 pop(i).Cost = newFit;
                 pop(i).Fs = newFS;
                 pop(i).Mcc =newMCC;
@@ -131,7 +130,7 @@ while Iter<Max_iter+1
             [newFit, newFS, newMCC, ~] = CostFunction(newBPop);
 
             if newFit<pop(i).Cost
-                pop(i).x = newPop;
+                pop(i).Position = newPop;
                 pop(i).Cost = newFit;
                 pop(i).Fs = newFS;
                 pop(i).Mcc =newMCC;
@@ -225,7 +224,7 @@ while Iter<Max_iter+1
             [newFit,newFS,newMCC, ~] = CostFunction(newBPop);
 
             if newFit<pop(i).Cost
-                pop(i).x = newPop;
+                pop(i).Position = newPop;
                 pop(i).Cost = newFit;
                 pop(i).Fs = newFS;
                 pop(i).Mcc =newMCC;
@@ -258,6 +257,7 @@ while Iter<Max_iter+1
 
     end
 
+    disp (num2str(Iter));
     disp (num2str(Conv_curve_E(Iter)));
     numOfFeature = numel(find(FoodBPosition==1));
     Iter = Iter + 1;

@@ -18,13 +18,19 @@ rf=nf/numel(s);
 Trains=x(:,S);
 Tests=x2(:,S);
 
-[Ete,Fs,Mcc,Etr] =CreateANNandtrain(Trains,train,Tests,test);
+train_label = train(:,end);
+test_label = test(:,end);
+
+
+[Ete, precision, recall, Fs, Mcc] = mlp_metric(Trains, train_label, Tests, test_label);
 
 % Set Outputs
 out.S = S;
 out.nf = nf;
 out.rf = rf;
-out.E = Etr;
+out.pr = precision;
+out.rc = recall;
+% out.E = Etr;
 out.EE = Ete;
 out.FS = Fs;
 out.Mc = Mcc;
